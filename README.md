@@ -80,6 +80,8 @@
   <p><em>Recomiendo su lectura y compresión antes de aplicarlo sobre un entorno de producción.</em></p>
 </div>
 
+Writen by [Juan](https://github.com/juanico10) 👌🏻
+
 
 **[`^        back to top        ^`](#wiki-ubiquiti)**
 # Acceso a la CLI y comandos básicos
