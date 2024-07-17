@@ -1056,10 +1056,12 @@ En la siguiente tabla aparece una recopilación de los tipos de paquetes más im
 </tbody>
 </table>
 
+---
 **[`^        back to top        ^`](#wiki-ubiquiti)**
 # LLDP
 En este punto vamos habilitar el Protocolo de Descubrimiento de Capa de Enlace (LLDP) en las interfaces de EdgeRouter.
 
+## Habilitar servicio LLDP
 En el EdgeRouter, es tan sencillo como entrar por cli, de esta forma lo habilitamos para todos los interfaces de red
 ```sh
 configuration
