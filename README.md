@@ -40,6 +40,8 @@
     - [Organización de reglas](#reordenación-de-las-reglas-de-firewall-y-nat)
     - [Port forwarding](#port-forwarding)
   - [ICMP](#ICMP)
+- [LLDP]
+  - [Habilitar servicio LLDP]
 - [Routing](#routing)
   - [Load Balancing](#load-balancing)
   - [OSPF](#ospf)
@@ -1054,6 +1056,23 @@ En la siguiente tabla aparece una recopilación de los tipos de paquetes más im
 </tbody>
 </table>
 
+**[`^        back to top        ^`](#wiki-ubiquiti)**
+# LLDP
+En este punto vamos habilitar el Protocolo de Descubrimiento de Capa de Enlace (LLDP) en las interfaces de EdgeRouter.
+
+En el EdgeRouter, es tan sencillo como entrar por cli, de esta forma lo habilitamos para todos los interfaces de red
+```sh
+configuration
+set service lldp
+commit ; save
+```
+
+O si queremos en algun interface concreto
+```sh
+configuration
+set service lldp interface ethX
+commit ; save
+```
 
 ---
 **[`^        back to top        ^`](#wiki-ubiquiti)**
