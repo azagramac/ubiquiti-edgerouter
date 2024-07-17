@@ -1064,8 +1064,8 @@ En este punto vamos habilitar el Protocolo de Descubrimiento de Capa de Enlace (
 ## Habilitar servicio LLDP
 En el EdgeRouter, es tan sencillo como entrar por cli, de esta forma lo habilitamos para todos los interfaces de red
 ```sh
-configuration
-set service lldp
+configure
+set service lldp interface all
 commit ; save
 ```
 
