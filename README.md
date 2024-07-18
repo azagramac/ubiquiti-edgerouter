@@ -1831,6 +1831,11 @@ set firewall name XXX rule XX protocol udp
 cd /home/ubnt
 curl -OL https://github.com/WireGuard/wireguard-vyatta-ubnt/releases/download/1.0.20220627-1/e300-v2-v1.0.20220627-v1.0.20210914.deb
 sudo dpkg -i e300-v2-v1.0.20220627-v1.0.20210914.deb
+configure
+sudo modprobe wireguard
+load
+commit ; save
+exit
 ```
 ### Generar claves
 ```sh
