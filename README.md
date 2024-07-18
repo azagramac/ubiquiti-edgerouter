@@ -1870,10 +1870,10 @@ set interfaces wireguard wg0 peer1 $(cat /home/ubnt/wireguard/peer1/public_peer.
 
 ### Aplicamos las reglas
 ```sh
-set firewall name WAN_LOCAL rule 30 action accept
-set firewall name WAN_LOCAL rule 30 protocol udp
-set firewall name WAN_LOCAL rule 30 destination port 51820
-set firewall name WAN_LOCAL rule 30 description 'WireGuard'
+set firewall name WAN_LOCAL rule 20 action accept
+set firewall name WAN_LOCAL rule 20 protocol udp
+set firewall name WAN_LOCAL rule 20 destination port 51820
+set firewall name WAN_LOCAL rule 20 description 'WireGuard'
 
 set firewall name WG_IN default-action drop
 set firewall name WG_IN description 'Wireguard to LAN'
