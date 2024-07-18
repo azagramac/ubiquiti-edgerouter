@@ -1823,11 +1823,67 @@ set firewall name XXX rule XX destination port 1194
 set firewall name XXX rule XX log disable
 set firewall name XXX rule XX protocol udp
 ```
-## WireGuard
+## WireGuard server
 <img src="https://github.com/azagramac/ubiquiti-edgerouter/assets/571796/0635ed8a-4df3-4faf-a47f-33ddbbecbe78" alt="Wireguard" width="64"/>
- Este tutorial describe como configurar un servidor WireGuard en un EdgeRouter.
-Adjunto el enlace al repositorio de GitHub:
-- <a href="https://github.com/WireGuard/wireguard-vyatta-ubnt" target="_blank">WireGuard/wireguard-vyatta-ubnt</a>
+
+### Instalar servidor Wireguard, for ER-4, ER-6P, ER-12 and ER-12P solamente.
+```sh
+curl -OL https://github.com/WireGuard/wireguard-vyatta-ubnt/releases/download/1.0.20220627-1/e300-v2-v1.0.20220627-v1.0.20210914.deb
+sudo dpkg -i e300-v2-v1.0.20220627-v1.0.20210914.deb
+```
+### Generar claves
+```sh
+cd /home/ubnt
+mkdir server_keys; cd server_keys
+wg genkey | tee private_server.key | wg pubkey > public_server.key
+cat private_server.key
+cat public_server.key
+```
+
+### Crear semillas, los clientes.
+```sh
+cd /home/ubnt
+mkdir peer_keys; cd peer_keys
+mkdir peer1; cd peer1 ## aqui crearas tantos usuarios necesites.
+wg genkey | tee private_peer.key | wg pubkey > public_peer.key
+cat private_peer.key 
+cat public_peer.key
+```
+
+### Configuracion del servidor
+```sh
+configure
+set interfaces wireguard wg0 private-key /home/ubnt/server_keys/private_server.key
+set interfaces wireguard wg0 address 10.10.1.1/24 ## el rango de IP pondremos el que queramos que tengan los clientes que se vayan a conectar y el [CIDR](https://azagramac.gitbook.io/myblog/linux/cidr-mascaras-de-subred).
+set interfaces wireguard wg0 route-allowed-ips true
+set interfaces wireguard wg0 listen-port 51820 ## El puerto por defecto de Wireguard, recomendable cambiarlo.
+```
+
+### Configuracion del Firewall
+```sh
+set firewall name WAN_LOCAL rule 30 action accept
+set firewall name WAN_LOCAL rule 30 protocol udp
+set firewall name WAN_LOCAL rule 30 destination port 51820
+set firewall name WAN_LOCAL rule 30 description 'WireGuard'
+```
+
+### Configuramos los clientes
+```sh
+set interfaces wireguard wg0 peer $(cat /home/ubnt/peer_keys/peer1/public_peer.key) allowed-ips 10.10.1.10/32 ## Añadimos la public key de cada peer, y le asignamos su IP
+set interfaces wireguard wg0 peer $(cat /home/ubnt/peer_keys/peer1/public_peer.key) description OnePlus ## Ponemos una descripcion
+```
+
+### Guardamos los cambios
+```sh
+commit ; save
+```
+Hasta aqui, ya tenemos lo basico, ahora toca crear la configuracion de los clientes que se usara para conectarse, se necesita el cliente Wireguard
+- [Android](https://play.google.com/store/apps/details?id=com.wireguard.android)
+- [iPhone/iPad](https://apps.apple.com/es/app/wireguard/id1441195209)
+- [MacOS](https://apps.apple.com/us/app/wireguard/id1451685025?mt=12)
+- [Windows](https://download.wireguard.com/windows-client/wireguard-installer.exe)
+
+##### To be continued... 
 
 ## OpenVPN (client)
 <img src="https://github.com/azagramac/ubiquiti-edgerouter/assets/571796/2467da27-d3c3-4e5b-887b-361db7686b50" alt="openvpn" width="64"/>
