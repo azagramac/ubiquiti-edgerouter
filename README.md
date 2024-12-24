@@ -725,7 +725,11 @@ commit ; save
   <p><em>Recomiendo su lectura y compresión antes de aplicarlo sobre un entorno de producción.</em></p>
 </div>
 
+:information_source:
 Puedes asignar la MAC del HGU a la WAN:
+```sh
+set interfaces ethernet ethX mac 'XX:XX:XX:XX:XX:XX'
+```
 
 ## IPv6 on the EdgeRouter
 El cortafuegos para IPv6 es independiente del cortafuegos de IPv4 y actualmente debe configurarse mediante la CLI ("establecer el nombre de ipv6 del cortafuegos...", etc.). O el árbol de configuración en la interfaz de usuario web, por lo que deberá crear reglas de IPv6 por separado y aplicarlas a la interfaz/dirección adecuada.
